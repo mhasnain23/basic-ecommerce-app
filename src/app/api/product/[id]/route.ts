@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 const products = [
     {
@@ -24,11 +24,8 @@ const products = [
     },
 ];
 
-export async function GET(
-    { params }: { params: { id: string } }
-) {
+export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
     const product = products.find(p => p.id === parseInt(params.id));
-
     if (product) {
         return NextResponse.json(product);
     } else {
