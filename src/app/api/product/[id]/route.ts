@@ -25,7 +25,6 @@ const products = [
 ];
 
 export async function GET(
-    request: Request,
     { params }: { params: { id: string } }
 ) {
     const product = products.find(p => p.id === parseInt(params.id));
