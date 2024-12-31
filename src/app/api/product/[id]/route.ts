@@ -26,14 +26,17 @@ const products = [
 
 export async function GET(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    context: { params: { id: string } } // Updated type for the `context` object
 ) {
-    const { id } = params; // Destructure the `id` directly from `params`
+    const { id } = context.params; // Destructure `id` from `context.params`
 
-    const product = products.find(p => p.id === parseInt(id));
+    const product = products.find(p => p.id === parseInt(id)); // Convert `id` to a number
     if (product) {
-        return NextResponse.json(product);
+        return NextResponse.json(product); // Return the product if found
     } else {
-        return NextResponse.json({ error: 'Product not found' }, { status: 404 });
+        return NextResponse.json(
+            { error: 'Product not found' },
+            { status: 404 } // Return a 404 status code if the product is not found
+        );
     }
 }
