@@ -24,14 +24,17 @@ const products = [
     },
 ];
 
-export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(request: NextRequest, { params }: { params: any }) {
     try {
         const product = products.find(p => p.id === parseInt(params.id));
         if (product) {
             return NextResponse.json(product);
+        } else {
+            return NextResponse.json({ error: 'Product not found' }, { status: 404 });
         }
     } catch (error) {
-        console.log("Internal server error", error);
-
+        console.error("Internal server error", error);
+        return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
     }
 }
+
