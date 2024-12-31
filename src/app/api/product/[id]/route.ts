@@ -26,9 +26,9 @@ const products = [
 
 export async function GET(
     request: NextRequest,
-    context: { params: { id: string } } // Updated type for the `context` object
+    { params }: { params: { id: string } }
 ) {
-    const { id } = context.params; // Destructure `id` from `context.params`
+    const { id } = params;
 
     const product = products.find(p => p.id === parseInt(id)); // Convert `id` to a number
     if (product) {
