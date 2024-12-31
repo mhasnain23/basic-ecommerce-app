@@ -31,13 +31,6 @@ async function getProduct(id: string) {
   }
 }
 
-async function getParams(params: { id: string }) {
-  if (!params?.id) {
-    throw new Error("Product ID is required");
-  }
-  return params.id;
-}
-
 export default async function ProductPage({
   params,
 }: {
@@ -45,11 +38,9 @@ export default async function ProductPage({
 }) {
   let product;
   let error;
-  let productId;
 
   try {
-    productId = await getParams(params);
-    product = await getProduct(productId);
+    product = await getProduct(params.id);
   } catch (e: any) {
     error = e;
     console.error("Error in ProductPage component:", e);
