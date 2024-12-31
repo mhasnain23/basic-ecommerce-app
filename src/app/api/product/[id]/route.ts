@@ -26,14 +26,29 @@ const products = [
 
 export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
     try {
-        const product = products.find(p => p.id === parseInt(params.id));
-        if (product) {
-            return NextResponse.json(product);
-        } else {
-            return NextResponse.json({ error: 'Product not found' }, { status: 404 });
+        const id = parseInt(params.id);
+
+        if (isNaN(id)) {
+            return NextResponse.json(
+                { error: 'Invalid ID format' },
+                { status: 400 }
+            );
         }
+
+        const product = products.find(p => p.id === id);
+
+        if (!product) {
+            return NextResponse.json(
+                { error: 'Product not found' },
+                { status: 404 }
+            );
+        }
+
+        return NextResponse.json(product);
     } catch (error) {
-        console.error("Internal server error", error);
-        return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+        return NextResponse.json(
+            { error: 'Internal server error' },
+            { status: 500 }
+        );
     }
 }
