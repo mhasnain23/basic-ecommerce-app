@@ -3,29 +3,32 @@ import { NextRequest, NextResponse } from 'next/server';
 const products = [
     {
         id: 1,
-        name: 'Boys Hoddie wear',
+        name: 'Boys Hoodie Wear',
         image: "/assets/thumb1.webp",
         price: 19.99,
-        description: 'This is a boy hoddie'
+        description: 'This is a boy hoodie'
     },
     {
         id: 2,
         name: 'Men T-Shirt 2025',
         image: "/assets/thumb2.webp",
         price: 29.99,
-        description: 'This is men t-shirt'
+        description: 'This is a men t-shirt'
     },
     {
         id: 3,
-        name: "Boys blue jeans",
+        name: "Boys Blue Jeans",
         image: "/assets/thumb3.webp",
         price: 39.99,
-        description: 'This is a blue jeans'
+        description: 'This is blue jeans'
     },
 ];
 
-export async function GET(request: NextRequest, { params }: { params: any }) {
-    const { id } = await params;
+export async function GET(
+    request: NextRequest,
+    { params }: { params: { id: string } }
+) {
+    const { id } = params; // Destructure the `id` directly from `params`
 
     const product = products.find(p => p.id === parseInt(id));
     if (product) {
