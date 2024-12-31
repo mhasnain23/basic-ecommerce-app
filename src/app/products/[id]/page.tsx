@@ -31,6 +31,13 @@ async function getProduct(id: string) {
   }
 }
 
+async function getParams(params: { id: string }) {
+  if (!params?.id) {
+    throw new Error("Product ID is required");
+  }
+  return params.id;
+}
+
 export default async function ProductPage({
   params,
 }: {
@@ -38,9 +45,11 @@ export default async function ProductPage({
 }) {
   let product;
   let error;
+  let productId;
 
   try {
-    product = await getProduct(params.id);
+    productId = await getParams(params);
+    product = await getProduct(productId);
   } catch (e: any) {
     error = e;
     console.error("Error in ProductPage component:", e);
@@ -52,18 +61,6 @@ export default async function ProductPage({
         <h1 className="text-2xl font-bold mb-4">Error</h1>
         <p>Error loading product. Please try again later.</p>
         <p>Details: {error.message}</p>
-        <Link href="/" className="text-blue-500 hover:underline">
-          Back to Products
-        </Link>
-      </div>
-    );
-  }
-
-  if (!product) {
-    return (
-      <div className="container mx-auto p-4">
-        <h1 className="text-2xl font-bold mb-4">Product Not Found</h1>
-        <p>The requested product could not be found.</p>
         <Link href="/" className="text-blue-500 hover:underline">
           Back to Products
         </Link>
