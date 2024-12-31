@@ -49,7 +49,7 @@ export default async function Home() {
     );
   }
 
-  console.log(products);
+  // console.log(products);
 
   return (
     <div className="container mx-auto p-4">
