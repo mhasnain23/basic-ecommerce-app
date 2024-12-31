@@ -26,8 +26,6 @@ const products = [
 
 export async function GET(request: NextRequest, { params }: { params: any }) {
     const { id } = await params;
-    // Simulate database delay
-    await new Promise(resolve => setTimeout(resolve, 100));
 
     const product = products.find(p => p.id === parseInt(id));
     if (product) {
