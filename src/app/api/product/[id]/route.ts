@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 
 const products = [
     {
@@ -24,7 +24,10 @@ const products = [
     },
 ];
 
-export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(
+    request: Request,
+    { params }: { params: { id: string } }
+) {
     try {
         const id = parseInt(params.id);
 
