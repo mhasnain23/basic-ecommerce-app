@@ -2,13 +2,12 @@ import Link from "next/link";
 import AddToCartButton from "@/components/AddToCart";
 import Image from "next/image";
 
+export const dynamic = "force-dynamic";
 async function getProducts() {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/product`, {
+      method: "GET",
       cache: "no-store",
-      headers: {
-        "Content-Type": "application/json",
-      },
     });
 
     if (!res.ok) {

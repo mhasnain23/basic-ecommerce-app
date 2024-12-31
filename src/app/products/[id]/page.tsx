@@ -31,11 +31,7 @@ async function getProduct(id: string) {
   }
 }
 
-export default async function ProductPage({
-  params,
-}: {
-  params: { id: string };
-}) {
+export default async function ProductPage({ params }: { params: any }) {
   let product;
   let error;
 

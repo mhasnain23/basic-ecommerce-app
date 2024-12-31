@@ -24,34 +24,11 @@ const products = [
     },
 ];
 
-export async function GET(
-    request: Request,
-    { params }: { params: { id: string } }
-) {
-    try {
-        const id = parseInt(params.id);
-
-        if (isNaN(id)) {
-            return NextResponse.json(
-                { error: 'Invalid ID format' },
-                { status: 400 }
-            );
-        }
-
-        const product = products.find(p => p.id === id);
-
-        if (!product) {
-            return NextResponse.json(
-                { error: 'Product not found' },
-                { status: 404 }
-            );
-        }
-
+export async function GET(request: Request, { params }: { params: any }) {
+    const product = products.find(p => p.id === parseInt(params.id));
+    if (product) {
         return NextResponse.json(product);
-    } catch (error) {
-        return NextResponse.json(
-            { error: 'Internal server error' },
-            { status: 500 }
-        );
+    } else {
+        return NextResponse.json({ error: 'Product not found' }, { status: 404 });
     }
 }
