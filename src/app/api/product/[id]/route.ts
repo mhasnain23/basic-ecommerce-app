@@ -26,9 +26,9 @@ const products = [
 
 export async function GET(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Record<string, string> }
 ) {
-    const { id } = params;
+    const { id } = params; // Extract `id` from `params`
 
     const product = products.find(p => p.id === parseInt(id)); // Convert `id` to a number
     if (product) {
